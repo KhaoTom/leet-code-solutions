@@ -29,3 +29,7 @@ def make_list_from_list_node(list_node):
         result.append(list_node.val)
 
     return result
+
+
+def add_two_numbers(ln1, ln2):
+    return ListNode(ln1.val + ln2.val)
