@@ -31,45 +31,45 @@ def make_list_from_list_node(list_node):
     return result
 
 
-def add_two_numbers(ln1, ln2):
-    s = ln1.val + ln2.val
+def add_two_numbers(l1, l2):
+    s = l1.val + l2.val
     carry = s // 10
     s = s % 10
-    ln1 = ln1.next
-    ln2 = ln2.next
+    l1 = l1.next
+    l2 = l2.next
     cln = ListNode(s)
     result = cln
     while True:
-        if ln1 and ln2:
-            s = ln1.val + ln2.val + carry
+        if l1 and l2:
+            s = l1.val + l2.val + carry
             carry = s // 10
             s = s % 10
-            ln1 = ln1.next
-            ln2 = ln2.next
+            l1 = l1.next
+            l2 = l2.next
             ln = ListNode(s)
             cln.next = ln
             cln = ln
-        elif ln1 and carry > 0:
-            s = ln1.val + carry
+        elif l1 and carry > 0:
+            s = l1.val + carry
             carry = s // 10
             s = s % 10
-            ln1 = ln1.next
+            l1 = l1.next
             ln = ListNode(s)
             cln.next = ln
             cln = ln
-        elif ln2 and carry > 0:
-            s = ln2.val + carry
+        elif l2 and carry > 0:
+            s = l2.val + carry
             carry = s // 10
             s = s % 10
-            ln2 = ln2.next
+            l2 = l2.next
             ln = ListNode(s)
             cln.next = ln
             cln = ln
-        elif ln1:
-            cln.next = ln1
+        elif l1:
+            cln.next = l1
             break
-        elif ln2:
-            cln.next = ln2
+        elif l2:
+            cln.next = l2
             break
         elif carry > 0:
             ln = ListNode(carry)
