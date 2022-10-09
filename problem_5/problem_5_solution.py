@@ -25,17 +25,7 @@ def search_palindromes(s, search_length):
 
     for i in range(0, len(s) - search_length + 1):
         if is_palindrome(s[i:i+search_length]):
-            candidate = s[i:i+search_length]
-            # check if this palindrome is contained in larger contiguous value palindrome
-            if candidate[0] == candidate[1] and candidate.count(candidate[0]) == len(candidate):
-                contiguous_end = i + len(candidate)
-                for j in range(contiguous_end, len(s)):
-                    if s[j] == s[i]:
-                        contiguous_end += 1
-                    else:
-                        break
-                return s[i:contiguous_end]
-            return candidate
+            return s[i:i+search_length]
     return None
 
 
