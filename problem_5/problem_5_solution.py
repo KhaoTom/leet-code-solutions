@@ -4,6 +4,8 @@ TODO: This solution is slow. Can it be sped up?
 
 
 def longest_palindrome(s):
+    if is_palindrome(s):
+        return s
     longest = s[0]
     seen_values = {s[0]}
     for i in range(1, len(s)):
@@ -23,6 +25,13 @@ def find_longest_palindrome_starting_with_last_value(s):
     for i in range(len(s)):
         if s[i] == last:
             candidate = s[i:]
-            if candidate == candidate[::-1] and len(candidate) > len(longest):
+            if is_palindrome(candidate) and len(candidate) > len(longest):
                 longest = candidate
     return longest
+
+
+def is_palindrome(s):
+    for i in range((len(s) // 2)):
+        if s[i] != s[-1 - i]:
+            return False
+    return True
