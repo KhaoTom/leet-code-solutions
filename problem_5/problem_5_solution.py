@@ -1,51 +1,46 @@
 def longest_palindrome(s):
+    # easy early out
     if is_palindrome(s):
         return s
+
+    # first character is always a palindrome
     longest = s[0]
-    seen_values = {s[0]}
-    last_value = s[0]
-    last_value_sequence_length = 1
-    for i in range(1, len(s)):
-        c = s[i]
-        if c == last_value:
-            last_value_sequence_length += 1
-        else:
-            # check for long sequence palindrome at boundaries between different values
-            if last_value_sequence_length > len(longest):
-                longest = s[i-last_value_sequence_length:i]
 
-            if c in seen_values:
-                # we've seen this value before and its not part of last value sequence, check for palindromes
-                candidate = find_longest_palindrome_starting_with_last_value(s[s.find(c):i+1])
-                if len(candidate) > len(longest):
-                    longest = candidate
-            else:
-                # new value, can't be a palindrome longer than the first value in the input
-                seen_values.add(c)
-
-            last_value_sequence_length = 1
-            last_value = c
-
-    # catch case like 'abbb' where longest is a sequence of repeated values at the end
-    if last_value_sequence_length > len(longest):
-        longest = s[len(s) - last_value_sequence_length:len(s)]
+    # search for palindromes of increasing lengths up to 1 less the length of input (which we already checked)
+    search_length = 2
+    while search_length < len(s):
+        candidate = search_palindromes(s, search_length)
+        if candidate is None:
+            search_length += 1
+            continue
+        search_length = len(candidate) + 1
+        longest = candidate
 
     return longest
 
 
-def find_longest_palindrome_starting_with_last_value(s):
-    last = s[-1]
-    longest = ''
-    for i in range(len(s)):
-        if s[i] == last:
-            candidate = s[i:]
-            if is_palindrome(candidate) and len(candidate) > len(longest):
-                longest = candidate
-    return longest
+def search_palindromes(s, search_length):
+    if search_length == 1:
+        return s[0]
+
+    for i in range(0, len(s) - search_length + 1):
+        if is_palindrome(s[i:i+search_length]):
+            candidate = s[i:i+search_length]
+            # check if this palindrome is contained in larger contiguous value palindrome
+            if candidate[0] == candidate[1] and candidate.count(candidate[0]) == len(candidate):
+                contiguous_end = i + len(candidate)
+                for j in range(contiguous_end, len(s)):
+                    if s[j] == s[i]:
+                        contiguous_end += 1
+                    else:
+                        break
+                return s[i:contiguous_end]
+            return candidate
+    return None
 
 
 def is_palindrome(s):
-    for i in range((len(s) // 2)):
-        if s[i] != s[-1 - i]:
-            return False
-    return True
+    # for i in range((len(s) // 2)):
+    #     if s[i] != s[-1 - i]:
+    #         return False
+    # return True
