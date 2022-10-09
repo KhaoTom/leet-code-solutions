@@ -24,7 +24,7 @@ def search_palindromes(s, search_length):
         return s[0]
 
     for i in range(0, len(s) - search_length + 1):
-        if is_palindrome(s[i:i+search_length]):
+        if s[i] == s[i+search_length-1] and is_palindrome(s[i:i+search_length]):
             return s[i:i+search_length]
     return None
 
@@ -33,7 +33,7 @@ def is_palindrome(s):
     return s == s[::-1]
 
 
-def first_solution(s) :
+def first_solution(s):
     longest = s[0]
     seen_values = {s[0]}
     for i in range(1, len(s)):
