@@ -1,5 +1,5 @@
 import pytest
-import add_two_numbers.add_two_numbers as a2n
+import problem_2.problem_2_solution as p2s
 
 
 @pytest.mark.parametrize(
@@ -12,8 +12,8 @@ import add_two_numbers.add_two_numbers as a2n
     ]
 )
 def test_list_node_conversions(source_list):
-    ln = a2n.make_list_node_from_list(source_list)
-    l2 = a2n.make_list_from_list_node(ln)
+    ln = p2s.make_list_node_from_list(source_list)
+    l2 = p2s.make_list_from_list_node(ln)
     assert l2 == source_list
 
 
@@ -26,8 +26,8 @@ def test_list_node_conversions(source_list):
     ]
 )
 def test_add_two_numbers(l1, l2, e):
-    ln1 = a2n.make_list_node_from_list(l1)
-    ln2 = a2n.make_list_node_from_list(l2)
-    r = a2n.add_two_numbers(ln1, ln2)
-    rl = a2n.make_list_from_list_node(r)
+    ln1 = p2s.make_list_node_from_list(l1)
+    ln2 = p2s.make_list_node_from_list(l2)
+    r = p2s.add_two_numbers(ln1, ln2)
+    rl = p2s.make_list_from_list_node(r)
     assert rl == e
